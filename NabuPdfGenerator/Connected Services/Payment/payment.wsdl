@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:sch="http://ofd.aisa.ru/payment" xmlns:tns="http://ofd.aisa.ru/payment" targetNamespace="http://ofd.aisa.ru/payment" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xs:schema xmlns:sx="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://ofd.aisa.ru/payment" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <sx:element name="UpdateKKTPeriodRequest">
+        <sx:complexType>
+          <sx:sequence>
+            <sx:element name="request_id" type="sx:int" />
+            <sx:element name="rnm" type="sx:string" />
+            <sx:element minOccurs="0" name="start_date" type="sx:string" />
+            <sx:element minOccurs="0" name="end_date" type="sx:string" />
+          </sx:sequence>
+        </sx:complexType>
+      </sx:element>
+      <sx:element name="UpdateKKTPeriodResponse">
+        <sx:complexType>
+          <sx:sequence>
+            <sx:element name="code" type="sx:int" />
+            <sx:element name="message" type="sx:string" />
+          </sx:sequence>
+        </sx:complexType>
+      </sx:element>
+      <sx:element name="UpdateInvoiceRequest">
+        <sx:complexType>
+          <sx:sequence>
+            <sx:element name="request_id" type="sx:int" />
+            <sx:element minOccurs="0" name="new_date" type="sx:string" />
+            <sx:element name="new_amount" type="sx:long" />
+          </sx:sequence>
+        </sx:complexType>
+      </sx:element>
+      <sx:element name="UpdateInvoiceResponse">
+        <sx:complexType>
+          <sx:sequence>
+            <sx:element name="code" type="sx:int" />
+            <sx:element name="message" type="sx:string" />
+          </sx:sequence>
+        </sx:complexType>
+      </sx:element>
+      <sx:element name="KKTStatusRequest">
+        <sx:complexType>
+          <sx:sequence>
+            <sx:element name="rnm" type="sx:string" />
+            <sx:element minOccurs="0" name="deactivation_date" type="sx:string" />
+            <sx:element name="activation">
+              <sx:simpleType>
+                <sx:restriction base="sx:int">
+                  <sx:enumeration value="0" />
+                  <sx:enumeration value="1" />
+                </sx:restriction>
+              </sx:simpleType>
+            </sx:element>
+          </sx:sequence>
+        </sx:complexType>
+      </sx:element>
+      <sx:element name="KKTStatusResponse">
+        <sx:complexType>
+          <sx:sequence>
+            <sx:element name="code" type="sx:int" />
+            <sx:element name="message" type="sx:string" />
+          </sx:sequence>
+        </sx:complexType>
+      </sx:element>
+      <sx:element name="paymentRequest">
+        <sx:complexType>
+          <sx:sequence>
+            <sx:element name="number" type="sx:string" />
+            <sx:element minOccurs="0" maxOccurs="1" name="datePayment">
+              <sx:simpleType>
+                <sx:restriction base="sx:string">
+                  <sx:pattern value="(([0][1-9])|([1-2][0-9])|([3][0-1]))[.](([0][1-9])|([1][0-2]))[.]\d{4}" />
+                </sx:restriction>
+              </sx:simpleType>
+            </sx:element>
+            <sx:element name="status">
+              <sx:simpleType>
+                <sx:restriction base="sx:int">
+                  <sx:enumeration value="1" />
+                  <sx:enumeration value="2" />
+                  <sx:enumeration value="5" />
+                  <sx:enumeration value="10" />
+                </sx:restriction>
+              </sx:simpleType>
+            </sx:element>
+          </sx:sequence>
+        </sx:complexType>
+      </sx:element>
+      <sx:element name="paymentResponse">
+        <sx:complexType>
+          <sx:sequence>
+            <sx:element name="code" type="sx:int" />
+            <sx:element name="message" type="sx:string" />
+          </sx:sequence>
+        </sx:complexType>
+      </sx:element>
+      <sx:element name="documentRequest">
+        <sx:complexType>
+          <sx:sequence>
+            <sx:element name="type">
+              <sx:simpleType>
+                <sx:restriction base="sx:string">
+                  <sx:enumeration value="act" />
+                  <sx:enumeration value="sf" />
+                  <sx:enumeration value="upd" />
+                  <sx:enumeration value="verification" />
+                </sx:restriction>
+              </sx:simpleType>
+            </sx:element>
+            <sx:element name="date">
+              <sx:simpleType>
+                <sx:restriction base="sx:string">
+                  <sx:pattern value="(([0][1-9])|([1-2][0-9])|([3][0-1]))[.](([0][1-9])|([1][0-2]))[.]\d{4}" />
+                </sx:restriction>
+              </sx:simpleType>
+            </sx:element>
+            <sx:element name="inn">
+              <sx:simpleType>
+                <sx:restriction base="sx:string">
+                  <sx:pattern value="\d{10}|\d{12}" />
+                </sx:restriction>
+              </sx:simpleType>
+            </sx:element>
+            <sx:element name="number" type="sx:string" />
+            <sx:element name="action">
+              <sx:simpleType>
+                <sx:restriction base="sx:string">
+                  <sx:enumeration value="insert" />
+                  <sx:enumeration value="update" />
+                  <sx:enumeration value="delete" />
+                </sx:restriction>
+              </sx:simpleType>
+            </sx:element>
+            <sx:element minOccurs="0" name="document" type="sx:string" />
+          </sx:sequence>
+        </sx:complexType>
+      </sx:element>
+      <sx:element name="documentResponse">
+        <sx:complexType>
+          <sx:sequence>
+            <sx:element name="code" type="sx:int" />
+            <sx:element name="description" type="sx:string" />
+          </sx:sequence>
+        </sx:complexType>
+      </sx:element>
+      <sx:element name="afterPaymentAccountRequest">
+        <sx:complexType>
+          <sx:sequence>
+            <sx:element name="numberAccount" type="sx:string" />
+            <sx:element name="createDate" type="sx:dateTime" />
+            <sx:element name="nameClient" type="sx:string" />
+            <sx:element name="inn" type="sx:string" />
+            <sx:element name="kpp" type="sx:string" />
+            <sx:element name="address" type="sx:string" />
+            <sx:element name="startDate" type="sx:dateTime" />
+            <sx:element name="endDate" type="sx:dateTime" />
+            <sx:element name="phone" type="sx:string" />
+            <sx:element name="salesNumber" type="sx:string" />
+            <sx:element name="amount" type="sx:long" />
+            <sx:element name="nds" type="sx:long" />
+            <sx:element name="totalAmount" type="sx:long" />
+            <sx:element name="count" type="sx:int" />
+            <sx:element name="sumWords" type="sx:long" />
+            <sx:element minOccurs="1" maxOccurs="unbounded" name="item">
+              <sx:complexType>
+                <sx:sequence>
+                  <sx:element name="nameService" type="sx:string" />
+                  <sx:element name="count" type="sx:int" />
+                  <sx:element name="sum" type="sx:long" />
+                  <sx:element name="price" type="sx:long" />
+                  <sx:element minOccurs="1" maxOccurs="unbounded" name="rnm" type="sx:string" />
+                </sx:sequence>
+              </sx:complexType>
+            </sx:element>
+          </sx:sequence>
+        </sx:complexType>
+      </sx:element>
+      <sx:element name="afterPaymentAccountResponse">
+        <sx:complexType>
+          <sx:sequence>
+            <sx:element name="code" type="sx:int" />
+            <sx:element name="message" type="sx:string" />
+            <sx:element name="document" type="sx:string" />
+          </sx:sequence>
+        </sx:complexType>
+      </sx:element>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="UpdateInvoiceResponse">
+    <wsdl:part name="UpdateInvoiceResponse" element="tns:UpdateInvoiceResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateKKTPeriodResponse">
+    <wsdl:part name="UpdateKKTPeriodResponse" element="tns:UpdateKKTPeriodResponse" />
+  </wsdl:message>
+  <wsdl:message name="KKTStatusRequest">
+    <wsdl:part name="KKTStatusRequest" element="tns:KKTStatusRequest" />
+  </wsdl:message>
+  <wsdl:message name="KKTStatusResponse">
+    <wsdl:part name="KKTStatusResponse" element="tns:KKTStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="paymentResponse">
+    <wsdl:part name="paymentResponse" element="tns:paymentResponse" />
+  </wsdl:message>
+  <wsdl:message name="afterPaymentAccountRequest">
+    <wsdl:part name="afterPaymentAccountRequest" element="tns:afterPaymentAccountRequest" />
+  </wsdl:message>
+  <wsdl:message name="afterPaymentAccountResponse">
+    <wsdl:part name="afterPaymentAccountResponse" element="tns:afterPaymentAccountResponse" />
+  </wsdl:message>
+  <wsdl:message name="paymentRequest">
+    <wsdl:part name="paymentRequest" element="tns:paymentRequest" />
+  </wsdl:message>
+  <wsdl:message name="UpdateInvoiceRequest">
+    <wsdl:part name="UpdateInvoiceRequest" element="tns:UpdateInvoiceRequest" />
+  </wsdl:message>
+  <wsdl:message name="UpdateKKTPeriodRequest">
+    <wsdl:part name="UpdateKKTPeriodRequest" element="tns:UpdateKKTPeriodRequest" />
+  </wsdl:message>
+  <wsdl:message name="documentRequest">
+    <wsdl:part name="documentRequest" element="tns:documentRequest" />
+  </wsdl:message>
+  <wsdl:message name="documentResponse">
+    <wsdl:part name="documentResponse" element="tns:documentResponse" />
+  </wsdl:message>
+  <wsdl:portType name="PaymentPort">
+    <wsdl:operation name="UpdateInvoice">
+      <wsdl:input name="UpdateInvoiceRequest" message="tns:UpdateInvoiceRequest" />
+      <wsdl:output name="UpdateInvoiceResponse" message="tns:UpdateInvoiceResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateKKTPeriod">
+      <wsdl:input name="UpdateKKTPeriodRequest" message="tns:UpdateKKTPeriodRequest" />
+      <wsdl:output name="UpdateKKTPeriodResponse" message="tns:UpdateKKTPeriodResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="KKTStatus">
+      <wsdl:input name="KKTStatusRequest" message="tns:KKTStatusRequest" />
+      <wsdl:output name="KKTStatusResponse" message="tns:KKTStatusResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="payment">
+      <wsdl:input name="paymentRequest" message="tns:paymentRequest" />
+      <wsdl:output name="paymentResponse" message="tns:paymentResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="afterPaymentAccount">
+      <wsdl:input name="afterPaymentAccountRequest" message="tns:afterPaymentAccountRequest" />
+      <wsdl:output name="afterPaymentAccountResponse" message="tns:afterPaymentAccountResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="document">
+      <wsdl:input name="documentRequest" message="tns:documentRequest" />
+      <wsdl:output name="documentResponse" message="tns:documentResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="PaymentPortSoap11" type="tns:PaymentPort">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="UpdateInvoice">
+      <soap:operation soapAction="" />
+      <wsdl:input name="UpdateInvoiceRequest">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="UpdateInvoiceResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateKKTPeriod">
+      <soap:operation soapAction="" />
+      <wsdl:input name="UpdateKKTPeriodRequest">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="UpdateKKTPeriodResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="KKTStatus">
+      <soap:operation soapAction="" />
+      <wsdl:input name="KKTStatusRequest">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="KKTStatusResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="payment">
+      <soap:operation soapAction="" />
+      <wsdl:input name="paymentRequest">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="paymentResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="afterPaymentAccount">
+      <soap:operation soapAction="" />
+      <wsdl:input name="afterPaymentAccountRequest">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="afterPaymentAccountResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="document">
+      <soap:operation soapAction="" />
+      <wsdl:input name="documentRequest">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="documentResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="PaymentPortService">
+    <wsdl:port name="PaymentPortSoap11" binding="tns:PaymentPortSoap11">
+      <soap:address location="https://api.ofd-ya.ru/payment.ftest/ws" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

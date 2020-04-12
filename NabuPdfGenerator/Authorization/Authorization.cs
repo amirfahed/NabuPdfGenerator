@@ -1,4 +1,5 @@
-﻿using Novell.Directory.Ldap;
+﻿using NLog;
+using Novell.Directory.Ldap;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -9,12 +10,11 @@ namespace NabuPdfGenerator.Authorization
 {
     public class Authorization
     {
+        Logger logger = LogManager.GetCurrentClassLogger();
         string LdapHost { get; set; } = "localhost";
         int LdapPort { get; set; } = 10389;
-        //string LoginON = "uid=admin,ou=system";
-        //string Password = "secret";
-        string SearchBase = "ou=users,o=Company";
-        string SearchFilter = "some";
+        //string SearchBase = "ou=users,o=Company";
+        //string SearchFilter = "some";
 
         public string Authorize(string LoginON, string Password)
         {
@@ -57,6 +57,7 @@ namespace NabuPdfGenerator.Authorization
             }
             catch (Exception e)
             {
+                logger.Error(e, $"ошибка авторизации, e.Message = {e.Message}, e.StackTrace= {e.StackTrace}");
                 throw e;
             }
 

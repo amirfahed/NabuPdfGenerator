@@ -1,6 +1,7 @@
 ﻿using Novell.Directory.Ldap;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 
@@ -8,8 +9,8 @@ namespace NabuPdfGenerator.Authorization
 {
     public class Authorization
     {
-        string LdapHost = "localhost";
-        int LdapPort = 10389;
+        string LdapHost { get; set; } = "localhost";
+        int LdapPort { get; set; } = 10389;
         //string LoginON = "uid=admin,ou=system";
         //string Password = "secret";
         string SearchBase = "ou=users,o=Company";
@@ -19,6 +20,8 @@ namespace NabuPdfGenerator.Authorization
         {
             try
             {
+                LdapHost = ConfigurationManager.AppSettings.Get("LdapHost");
+                LdapPort = int.Parse(ConfigurationManager.AppSettings.Get("LdapPort"));
                 LdapConnection connection = new LdapConnection();
                 connection.Connect(LdapHost, LdapPort);
                 connection.Bind(LoginON, Password);

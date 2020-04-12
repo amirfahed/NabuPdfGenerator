@@ -13,6 +13,7 @@ namespace NabuPdfGenerator
     {
         void Application_Start(object sender, EventArgs e)
         {
+            var a = new NabuPdfGenerator.Authorization.Authorization().Authorize("admin","pass");
             // Код, выполняемый при запуске приложения
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);

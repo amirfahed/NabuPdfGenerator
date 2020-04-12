@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using NabuPdfGenerator.Api.Models;
+using System;
 
 namespace NabuPdfGenerator.Api
 {
@@ -16,6 +14,7 @@ namespace NabuPdfGenerator.Api
 
         public DocumentResponse SendRequest(DocumentRequest documentRequest)
         {
+
             var response = client.document(new Payment.documentRequest() 
             {
                 action = ConvertDocumentAction(documentRequest.Action),

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace NabuPdfGenerator.Api
+namespace NabuPdfGenerator.Api.Models
 {
     public enum DocumentRequestType
     {
